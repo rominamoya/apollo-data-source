@@ -13,8 +13,8 @@ class MvrpAPI extends RESTDataSource {
   }
 
   async getTodo(id) {
-    console.log("aca", await this.get(`todo/${id}`));
-    return this.get(`todo/${id}`);
+    console.log("aca", await this.get(`todos/${id}`));
+    return this.get(`todos/${id}`);
   }
 }
 
