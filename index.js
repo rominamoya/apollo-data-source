@@ -1,6 +1,6 @@
-const MvrpAPI = require("./datasource");
+const MvrpAPI = require('./datasource');
 
-const { ApolloServer, gql } = require("apollo-server");
+const { ApolloServer, gql } = require('apollo-server');
 
 const typeDefs = gql`
   type Todo {
@@ -24,26 +24,26 @@ const typeDefs = gql`
     users: [User]
   }
 `;
-
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const resolvers = {
   Query: {
-    hello: (root, args, context) => "Hello world!",
+    hello: (root, args, context) => 'Hello world!',
     todo: (root, { id }, { dataSources }) => dataSources.mvrpAPI.getTodo(id),
     todos: (root, args, { dataSources }) => dataSources.mvrpAPI.getTodos(),
-    users: (root, args, { dataSources }) => dataSources.mvrpAPI.getUsers() // need a getusersendpoint
+    users: (root, args, { dataSources }) => dataSources.mvrpAPI.getUsers(), // need a getusersendpoint
   },
   User: {
     userTodos: ({ id }, args, { dataSources }) => {
       return dataSources.mvrpAPI.getTodosByUser(id);
-    }
-  }
+    },
+  },
 };
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   dataSources: () => ({
-    mvrpAPI: new MvrpAPI()
-  })
+    mvrpAPI: new MvrpAPI(),
+  }),
 });
 
 server.listen().then(({ url }) => {
