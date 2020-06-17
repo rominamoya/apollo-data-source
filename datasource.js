@@ -8,12 +8,17 @@ class MvrpAPI extends RESTDataSource {
 
   async getTodos() {
     const data = await this.get("todos");
-
     return data;
   }
 
+  async getTodosByUser(userId) {
+    return this.get("todos", { userId });
+  }
+
+  async getUsers() {
+    return await this.get("users");
+  }
   async getTodo(id) {
-    console.log("aca", await this.get(`todos/${id}`));
     return this.get(`todos/${id}`);
   }
 }
